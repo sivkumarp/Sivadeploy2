@@ -1,0 +1,76 @@
+#%RAML 1.0
+version: v1
+title: Employee Details
+securitySchemes:
+  oauth_2_0:
+    description: |
+      This API supports OAuth 2.0 for authenticating all API requests.
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        authorization:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use with the "access_token" query
+             string parameter.
+          type: string
+      queryParameters:
+        access_token:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use together with the "Authorization"
+             header
+          type: string
+      responses:
+        400:
+          description: Invalid token.
+        401:
+          description: |
+            Unauthorized or Connection error when connecting to the authorization server.
+        403:
+          description: |
+            Forbidden, invalid client application credentials.
+        500:
+          description: |
+            Bad response from authorization server, or WSDL SOAP Fault error.
+    settings:
+      authorizationUri: https://dev-624820.okta.com/oauth2/default/v1/authorize
+      accessTokenUri: https://dev-624820.okta.com/oauth2/default/v1/token
+      authorizationGrants: [authorization_code, password, client_credentials, implicit]
+/users:
+  get:
+    securedBy: [oauth_2_0]
+
+/getEmployee:
+ get:
+   queryParameters:
+     EMPLOYEE_ID:
+       required: true
+       minLength: 3
+       maxLength: 3     
+     
+   responses:
+     200:
+      body:
+        application/json:
+          example:
+           {
+                'EMPLOYEE_ID': 100,
+                'FIRST_NAME': "Jason",
+                'LAST_NAME': "Jill"
+           }
+     404:
+       body:
+         application/json:
+           example:
+             {
+               "status" : 404,
+               "message" : "Emplid Not Found"
+             }
+     500:
+       body:
+         application/json:
+           example:
+             {
+               "status" : 500,
+               "message" : "Internal Server Error"
+             }
+           
