@@ -138,6 +138,7 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="867b5eab-345b-482a-97b3-3e9f4b78abf1" message="Flow end"/>
     </flow>
     <flow name="get:\users:sivatestapi2-config">
         <logger level="INFO" message="get:\users:sivatestapi2-config" />
