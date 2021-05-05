@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sivatestapi2-test-suite.xml" />
+	<munit:test name="sivatestapi2-test-suite-get:\getEmployee:sivatestapi2-configTest" doc:id="f702170f-b14c-4c55-a389-901d18d940ed" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="aee58dfc-20d9-4fe6-8ec9-88bb91ec12ac" >
+				<munit:attributes value='#[{queryParams:{"EMPLOYEE_ID":"112"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\getEmployee:sivatestapi2-config" doc:id="b8544cf4-beb8-48bc-831f-16dc63853823" name="get:\getEmployee:sivatestapi2-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="095bac96-af68-48ee-951d-8ee208c8b1ab" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

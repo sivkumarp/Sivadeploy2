@@ -7,6 +7,12 @@ pipeline
    bat 'mvn clean install -nsu -DskipMunitTests'
    }
    }
+   
+   stage('Munit Testing'){
+   steps{
+   bat 'mvn test'
+   }
+   }  
  
   stage('Deploy Application'){
    steps{
